@@ -1,9 +1,6 @@
 package com.javacore.store.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 
 
@@ -11,23 +8,33 @@ import lombok.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 @Builder
 @Entity
 @Table(name = "addresses")
 public class Address {
 
     @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, name = "street")
+    @Column(name = "street")
     private String street;
 
-    @Column(nullable = false, name = "city")
+    @Column(name = "city")
     private String city;
 
-    @Column(nullable = false, name = "zip")
+    @Column(name = "zip")
     private String zip;
 
-    @Column(nullable = false, name = "state")
+    @Column(name = "state")
     private String state;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    @ToString.Exclude
+    private User user;
+
+
 }

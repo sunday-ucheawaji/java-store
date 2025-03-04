@@ -1,9 +1,6 @@
 package com.javacore.store.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -12,24 +9,31 @@ import java.time.LocalDate;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 @Builder
 @Entity
 @Table(name = "profiles")
 public class Profile {
 
     @Id
+    @Column(name = "id")
     private Long id;
 
-    @Column(nullable = false, name = "bio")
+    @Column( name = "bio")
     private String bio;
 
-    @Column(nullable = false, name = "phone_number")
+    @Column( name = "phone_number")
     private String phoneNumber;
 
-    @Column(nullable = false, name = "date_of_birth")
+    @Column( name = "date_of_birth")
     private LocalDate dateOfBirth;
 
-    @Column(nullable = false, name = "loyalty_points")
+    @Column(name = "loyalty_points")
     private Integer loyaltyPoints;
 
+    @OneToOne
+    @JoinColumn(name = "id")
+    @MapsId
+    @ToString.Exclude
+    private User user;
 }
